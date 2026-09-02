@@ -1,0 +1,328 @@
+{% extends "base.html" %}
+
+{% block title %}
+Raghava Capital | Add Customer
+{% endblock %}
+
+{% block customer_active %}
+active
+{% endblock %}
+
+{% block extra_css %}
+
+<style>
+
+    .page-header {
+        margin-bottom: 25px;
+    }
+
+    .page-header h1 {
+        margin: 0;
+        color: #172033;
+        font-size: 30px;
+    }
+
+    .page-header p {
+        margin-top: 8px;
+        color: #718078;
+        font-size: 14px;
+    }
+
+
+    .form-card {
+
+        max-width: 750px;
+
+        background: #f8faf9;
+
+        border: 1px solid #dfe9e5;
+
+        border-radius: 16px;
+
+        padding: 30px;
+
+        box-shadow:
+            0 5px 18px
+            rgba(20,55,45,0.06);
+    }
+
+
+    .form-card h2 {
+
+        margin-top: 0;
+
+        margin-bottom: 25px;
+
+        font-size: 20px;
+
+        color: #123c35;
+    }
+
+
+    form p {
+
+        margin-bottom: 18px;
+    }
+
+
+    label {
+
+        display: block;
+
+        margin-bottom: 7px;
+
+        font-size: 14px;
+
+        font-weight: bold;
+
+        color: #334155;
+    }
+
+
+    input,
+    select,
+    textarea {
+
+        width: 100%;
+
+        padding: 13px 14px;
+
+        border: 1px solid #cfdcd7;
+
+        border-radius: 9px;
+
+        background: white;
+
+        font-size: 14px;
+
+        outline: none;
+
+        transition: 0.2s;
+    }
+
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+
+        border-color: #c49a5a;
+
+        box-shadow:
+            0 0 0 3px
+            rgba(196,154,90,0.12);
+    }
+
+
+    .helptext {
+
+        display: block;
+
+        margin-top: 5px;
+
+        color: #7b8a84;
+
+        font-size: 12px;
+    }
+
+
+    .errorlist {
+
+        list-style: none;
+
+        padding: 0;
+
+        margin: 5px 0;
+
+        color: #c0392b;
+
+        font-size: 12px;
+    }
+
+
+    .buttons {
+
+        display: flex;
+
+        gap: 12px;
+
+        margin-top: 25px;
+    }
+
+
+    .save-btn {
+
+        border: none;
+
+        padding: 13px 24px;
+
+        border-radius: 9px;
+
+        background: #c49a5a;
+
+        color: white;
+
+        font-size: 14px;
+
+        font-weight: bold;
+
+        cursor: pointer;
+
+        transition: 0.2s;
+    }
+
+
+    .save-btn:hover {
+
+        background: #a98148;
+
+        transform: translateY(-1px);
+    }
+
+
+    .cancel-btn {
+
+        padding: 13px 24px;
+
+        border-radius: 9px;
+
+        background: #e5ebe8;
+
+        color: #334155;
+
+        text-decoration: none;
+
+        font-size: 14px;
+
+        font-weight: bold;
+
+        transition: 0.2s;
+    }
+
+
+    .cancel-btn:hover {
+
+        background: #d8e1dd;
+    }
+
+
+    /* MOBILE */
+
+    @media (max-width: 750px) {
+
+        .page-header h1 {
+
+            font-size: 25px;
+        }
+
+
+        .form-card {
+
+            padding: 22px;
+
+            border-radius: 13px;
+        }
+
+    }
+
+
+    @media (max-width: 500px) {
+
+        .page-header {
+
+            margin-bottom: 18px;
+        }
+
+
+        .page-header h1 {
+
+            font-size: 22px;
+        }
+
+
+        .page-header p {
+
+            font-size: 13px;
+        }
+
+
+        .form-card {
+
+            padding: 18px;
+
+        }
+
+
+        .buttons {
+
+            flex-direction: column;
+        }
+
+
+        .save-btn,
+        .cancel-btn {
+
+            width: 100%;
+
+            text-align: center;
+        }
+
+    }
+
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page-header">
+
+    <h1>
+        👤 Add Customer
+    </h1>
+
+    <p>
+        Register a new customer in Raghava Capital.
+    </p>
+
+</div>
+
+
+<div class="form-card">
+
+    <h2>
+        Customer Information
+    </h2>
+
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+
+        <div class="buttons">
+
+            <button
+                type="submit"
+                class="save-btn"
+            >
+                Save Customer
+            </button>
+
+
+            <a
+                href="{% url 'dashboard' %}"
+                class="cancel-btn"
+            >
+                Cancel
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

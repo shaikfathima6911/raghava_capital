@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loan List</title>
+</head>
+<body>
+
+<h2>Loan List</h2>
+
+<a href="{% url 'add_loan' %}">Add New Loan</a>
+
+<br><br>
+
+<table border="1" cellpadding="10">
+<tr>
+    <th>ID</th>
+    <th>Customer</th>
+    <th>Loan Amount</th>
+    <th>Interest</th>
+    <th>Total Amount</th>
+    <th>Paid Amount</th>
+    <th>Remaining Amount</th>
+    <th>Weekly Payment</th>
+    <th>Start Date</th>
+    <th>Status</th>
+</tr>
+
+    {% for loan in loans %}
+ <tr>
+    <td>{{ loan.id }}</td>
+    <td>{{ loan.customer.name }}</td>
+    <td>₹{{ loan.loan_amount }}</td>
+    <td>₹{{ loan.interest_amount }}</td>
+    <td>₹{{ loan.total_amount }}</td>
+    <td>₹{{ loan.paid_amount }}</td>
+    <td>₹{{ loan.remaining_amount }}</td>
+    <td>₹{{ loan.weekly_payment }}</td>
+    <td>{{ loan.start_date }}</td>
+    <td>{{ loan.status }}</td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="10">No loans found.</td>
+</tr>
+{% endfor %}
+
+</table>
+
+</body>
+</html>

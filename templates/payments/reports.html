@@ -1,0 +1,1552 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Raghava Capital | Payment Reports</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #eef3f1;
+            color: #172033;
+        }
+
+
+        /* =========================================
+           SIDEBAR
+        ========================================= */
+
+        .sidebar {
+
+            position: fixed;
+
+            left: 0;
+            top: 0;
+
+            width: 250px;
+            height: 100vh;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #123c35,
+                    #092a25
+                );
+
+            color: white;
+
+            padding: 25px 16px;
+
+            display: flex;
+            flex-direction: column;
+
+            overflow-y: auto;
+
+            z-index: 1000;
+        }
+
+
+        .logo {
+
+            background: #f8faf9;
+
+            border-radius: 14px;
+
+            padding: 10px;
+
+            margin-bottom: 28px;
+
+            text-align: center;
+
+            box-shadow:
+                0 5px 18px
+                rgba(0,0,0,0.15);
+        }
+
+
+        .logo img {
+
+            width: 190px;
+
+            max-width: 100%;
+
+            height: auto;
+
+            display: block;
+
+            margin: 0 auto;
+
+            object-fit: contain;
+        }
+
+
+        /* NAVIGATION */
+
+        .nav {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 8px;
+        }
+
+
+        .nav a {
+
+            color: #dce9e5;
+
+            text-decoration: none;
+
+            padding: 14px 16px;
+
+            border-radius: 10px;
+
+            font-size: 15px;
+
+            transition: 0.25s;
+
+            display: block;
+        }
+
+
+        .nav a:hover {
+
+            background:
+                rgba(255,255,255,0.10);
+
+            color: white;
+
+            transform:
+                translateX(3px);
+        }
+
+
+        .nav .active {
+
+            background: #b88a44;
+
+            color: white;
+
+            box-shadow:
+                0 5px 15px
+                rgba(184,138,68,0.30);
+        }
+
+
+        .logout {
+
+            margin-top: 20px !important;
+
+            border-top:
+                1px solid
+                rgba(255,255,255,0.15);
+
+            padding-top: 20px !important;
+        }
+
+
+        .sidebar-bottom {
+
+            margin-top: auto;
+
+            text-align: center;
+
+            color: #9db5ae;
+
+            font-size: 12px;
+
+            line-height: 1.6;
+
+            padding-top: 25px;
+        }
+
+
+        /* =========================================
+           MAIN
+        ========================================= */
+
+        .main {
+
+            margin-left: 250px;
+
+            width:
+                calc(100% - 250px);
+
+            min-height: 100vh;
+
+            padding: 30px;
+        }
+
+
+        /* =========================================
+           TOP BAR
+        ========================================= */
+
+        .topbar {
+
+            background: #f8faf9;
+
+            border:
+                1px solid #dfe9e5;
+
+            border-radius: 15px;
+
+            padding: 15px 20px;
+
+            margin-bottom: 25px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+        }
+
+
+        .page-heading {
+
+            font-size: 22px;
+
+            font-weight: bold;
+
+            color: #172033;
+        }
+
+
+        .page-heading span {
+
+            display: block;
+
+            color: #718078;
+
+            font-size: 12px;
+
+            font-weight: normal;
+
+            margin-top: 5px;
+        }
+
+
+        .profile {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+
+        .profile-icon {
+
+            width: 40px;
+
+            height: 40px;
+
+            border-radius: 50%;
+
+            background: #e6eee9;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 20px;
+        }
+
+
+        .profile-text strong {
+
+            display: block;
+
+            font-size: 13px;
+        }
+
+
+        .profile-text span {
+
+            color: #718078;
+
+            font-size: 11px;
+        }
+
+
+        /* =========================================
+           CONTAINER
+        ========================================= */
+
+        .container {
+
+            width: 100%;
+
+            background: #f8faf9;
+
+            border:
+                1px solid #dfe9e5;
+
+            border-radius: 18px;
+
+            padding: 30px;
+
+            box-shadow:
+                0 8px 25px
+                rgba(20,55,45,0.07);
+        }
+
+
+        /* =========================================
+           LOGO
+        ========================================= */
+
+        .report-logo {
+
+            text-align: center;
+
+            margin-bottom: 12px;
+        }
+
+
+        .report-logo img {
+
+            width: 155px;
+
+            max-width: 70%;
+
+            height: auto;
+
+            display: block;
+
+            margin: 0 auto;
+        }
+
+
+        /* =========================================
+           TITLE
+        ========================================= */
+
+        .title {
+
+            text-align: center;
+
+            margin-bottom: 28px;
+        }
+
+
+        .title h1 {
+
+            font-size: 27px;
+
+            color: #172033;
+
+            margin-bottom: 7px;
+        }
+
+
+        .title p {
+
+            color: #718078;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================================
+           SUMMARY
+        ========================================= */
+
+        .summary {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 15px;
+
+            margin-bottom: 28px;
+        }
+
+
+        .card {
+
+            background: white;
+
+            border:
+                1px solid #dfe9e5;
+
+            border-radius: 13px;
+
+            padding: 20px;
+
+            box-shadow:
+                0 5px 15px
+                rgba(20,55,45,0.05);
+
+            transition: 0.25s;
+        }
+
+
+        .card:hover {
+
+            transform:
+                translateY(-3px);
+        }
+
+
+        .card-title {
+
+            color: #718078;
+
+            font-size: 11px;
+
+            font-weight: bold;
+
+            text-transform: uppercase;
+
+            margin-bottom: 10px;
+        }
+
+
+        .card-value {
+
+            color: #172033;
+
+            font-size: 23px;
+
+            font-weight: bold;
+
+            word-break: break-word;
+        }
+
+
+        .card.total {
+
+            border-top:
+                4px solid #b88a44;
+        }
+
+
+        .card.cash {
+
+            border-top:
+                4px solid #2e7d32;
+        }
+
+
+        .card.online {
+
+            border-top:
+                4px solid #557b72;
+        }
+
+
+        .card.other {
+
+            border-top:
+                4px solid #8b6f47;
+        }
+
+
+        /* =========================================
+           FILTER
+        ========================================= */
+
+        .filter-box {
+
+            background: white;
+
+            border:
+                1px solid #dfe9e5;
+
+            border-radius: 13px;
+
+            padding: 22px;
+
+            margin-bottom: 27px;
+
+            box-shadow:
+                0 5px 15px
+                rgba(20,55,45,0.05);
+        }
+
+
+        .filter-title {
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            color: #172033;
+
+            margin-bottom: 18px;
+        }
+
+
+        .filter-form {
+
+            display: grid;
+
+            grid-template-columns:
+                2fr 1fr 1fr auto;
+
+            gap: 12px;
+
+            align-items: end;
+        }
+
+
+        .field label {
+
+            display: block;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            color: #334155;
+
+            margin-bottom: 7px;
+        }
+
+
+        .field input,
+        .field select {
+
+            width: 100%;
+
+            padding: 12px;
+
+            border:
+                1px solid #ccd9d4;
+
+            border-radius: 8px;
+
+            background: white;
+
+            color: #172033;
+
+            font-size: 14px;
+
+            outline: none;
+        }
+
+
+        .field input:focus,
+        .field select:focus {
+
+            border-color: #b88a44;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(184,138,68,0.10);
+        }
+
+
+        .filter-btn {
+
+            border: none;
+
+            padding: 12px 20px;
+
+            border-radius: 8px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #b88a44,
+                    #916b35
+                );
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            font-size: 14px;
+
+            transition: 0.25s;
+        }
+
+
+        .filter-btn:hover {
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        .clear-btn {
+
+            display: inline-block;
+
+            margin-top: 14px;
+
+            color: #8b6f47;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            font-weight: bold;
+        }
+
+
+        .clear-btn:hover {
+
+            text-decoration: underline;
+        }
+
+
+        /* =========================================
+           REPORT TABLE
+        ========================================= */
+
+        .report-title {
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            color: #172033;
+
+            margin-bottom: 15px;
+        }
+
+
+        .table-wrapper {
+
+            width: 100%;
+
+            overflow-x: auto;
+
+            background: white;
+
+            border:
+                1px solid #dfe9e5;
+
+            border-radius: 12px;
+
+            -webkit-overflow-scrolling: touch;
+        }
+
+
+        table {
+
+            width: 100%;
+
+            min-width: 850px;
+
+            border-collapse: collapse;
+        }
+
+
+        th {
+
+            background: #123c35;
+
+            color: white;
+
+            padding: 14px 12px;
+
+            text-align: left;
+
+            font-size: 12px;
+
+            white-space: nowrap;
+        }
+
+
+        td {
+
+            padding: 13px 12px;
+
+            border-bottom:
+                1px solid #e8eeeb;
+
+            color: #334155;
+
+            font-size: 13px;
+
+            white-space: nowrap;
+        }
+
+
+        tbody tr:hover {
+
+            background: #f4f7f5;
+        }
+
+
+        tbody tr:last-child td {
+
+            border-bottom: none;
+        }
+
+
+        .amount {
+
+            color: #8b6f47;
+
+            font-weight: bold;
+        }
+
+
+        .method {
+
+            display: inline-block;
+
+            padding: 5px 9px;
+
+            border-radius: 20px;
+
+            background: #edf3ef;
+
+            color: #557b72;
+
+            font-size: 11px;
+
+            font-weight: bold;
+        }
+
+
+        .empty {
+
+            text-align: center;
+
+            padding: 45px 20px;
+
+            color: #718078;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================================
+           BOTTOM LINKS
+        ========================================= */
+
+        .bottom {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 12px;
+
+            margin-top: 25px;
+        }
+
+
+        .bottom-link {
+
+            display: inline-block;
+
+            padding: 12px 18px;
+
+            border-radius: 8px;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            color: #557b72;
+
+            background: #e7efeb;
+
+            transition: 0.25s;
+        }
+
+
+        .bottom-link:hover {
+
+            background: #dce8e2;
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        /* =========================================
+           FOOTER
+        ========================================= */
+
+        .footer {
+
+            text-align: center;
+
+            margin-top: 25px;
+
+            color: #7c8c85;
+
+            font-size: 12px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================================
+           TABLET
+        ========================================= */
+
+        @media (max-width: 1100px) {
+
+            .summary {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .filter-form {
+
+                grid-template-columns:
+                    1fr 1fr;
+            }
+
+
+            .filter-btn {
+
+                width: 100%;
+            }
+
+        }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 750px) {
+
+            .sidebar {
+
+                position: relative;
+
+                width: 100%;
+
+                height: auto;
+
+                min-height: auto;
+
+                padding: 20px 15px;
+            }
+
+
+            .logo img {
+
+                width: 200px;
+            }
+
+
+            .nav {
+
+                display: grid;
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+                gap: 8px;
+            }
+
+
+            .nav a {
+
+                text-align: center;
+
+                padding: 12px 8px;
+
+                font-size: 13px;
+            }
+
+
+            .nav a:hover {
+
+                transform: none;
+            }
+
+
+            .logout {
+
+                margin-top: 5px !important;
+
+                padding-top: 12px !important;
+            }
+
+
+            .sidebar-bottom {
+
+                display: none;
+            }
+
+
+            .main {
+
+                margin-left: 0;
+
+                width: 100%;
+
+                padding: 15px;
+            }
+
+
+            .topbar {
+
+                padding: 15px;
+
+                flex-direction: column;
+
+                align-items: stretch;
+
+                text-align: center;
+            }
+
+
+            .profile {
+
+                justify-content: center;
+            }
+
+
+            .container {
+
+                padding: 22px 15px;
+
+                border-radius: 14px;
+            }
+
+
+            .summary {
+
+                grid-template-columns: 1fr;
+
+                gap: 12px;
+            }
+
+
+            .card {
+
+                padding: 17px;
+            }
+
+
+            .card-value {
+
+                font-size: 21px;
+            }
+
+
+            .filter-box {
+
+                padding: 17px;
+            }
+
+
+            .filter-form {
+
+                grid-template-columns: 1fr;
+
+                gap: 14px;
+            }
+
+
+            .filter-btn {
+
+                width: 100%;
+
+                padding: 13px;
+            }
+
+
+            .clear-btn {
+
+                display: block;
+
+                text-align: center;
+            }
+
+
+            .bottom {
+
+                flex-direction: column;
+            }
+
+
+            .bottom-link {
+
+                width: 100%;
+
+                text-align: center;
+            }
+
+
+            table {
+
+                min-width: 850px;
+            }
+
+        }
+
+
+        /* =========================================
+           SMALL PHONES
+        ========================================= */
+
+        @media (max-width: 360px) {
+
+            .main {
+
+                padding: 10px;
+            }
+
+
+            .container {
+
+                padding: 18px 11px;
+            }
+
+
+            .logo img {
+
+                width: 170px;
+            }
+
+
+            .title h1 {
+
+                font-size: 21px;
+            }
+
+
+            .card-value {
+
+                font-size: 19px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         SIDEBAR
+    ========================================= -->
+
+    <aside class="sidebar">
+
+
+        <div class="logo">
+
+            <img
+                src="{% static 'images/logo.png' %}"
+                alt="Raghava Capital Logo"
+            >
+
+        </div>
+
+
+        <nav class="nav">
+
+
+            <a href="{% url 'dashboard' %}">
+                🏠 &nbsp; Dashboard
+            </a>
+
+
+            <a href="{% url 'add_customer' %}">
+                👤 &nbsp; Add Customer
+            </a>
+
+
+            <a href="{% url 'add_loan' %}">
+                💰 &nbsp; Add Loan
+            </a>
+
+
+            <a href="{% url 'payment_list' %}">
+                💳 &nbsp; Payments
+            </a>
+
+
+            <a
+                href="{% url 'reports' %}"
+                class="active"
+            >
+                📊 &nbsp; Reports
+            </a>
+
+
+            <a
+                href="{% url 'logout' %}"
+                class="logout"
+            >
+                🚪 &nbsp; Logout
+            </a>
+
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <p>
+                “Supporting People<br>
+                Building Better Tomorrows”
+            </p>
+
+            <p>
+                © 2026 Raghava Capital
+            </p>
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- =========================================
+         MAIN
+    ========================================= -->
+
+    <div class="main">
+
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <div class="page-heading">
+
+                📊 Payment Reports
+
+                <span>
+                    Analyze and track your loan payment collections
+                </span>
+
+            </div>
+
+
+            <div class="profile">
+
+                <div class="profile-icon">
+                    👤
+                </div>
+
+
+                <div class="profile-text">
+
+                    <strong>
+                        Owner
+                    </strong>
+
+                    <span>
+                        Raghava Capital
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- REPORT CONTAINER -->
+
+        <main class="container">
+
+
+            <!-- LOGO -->
+
+            <div class="report-logo">
+
+                <img
+                    src="{% static 'images/logo.png' %}"
+                    alt="Raghava Capital Logo"
+                >
+
+            </div>
+
+
+
+            <!-- TITLE -->
+
+            <div class="title">
+
+                <h1>
+                    📊 Payment Reports
+                </h1>
+
+                <p>
+                    Analyze and track your loan payment collections.
+                </p>
+
+            </div>
+
+
+
+            <!-- SUMMARY -->
+
+            <section class="summary">
+
+
+                <div class="card total">
+
+                    <div class="card-title">
+                        Total Payments
+                    </div>
+
+                    <div class="card-value">
+                        {{ total_payments }}
+                    </div>
+
+                </div>
+
+
+                <div class="card cash">
+
+                    <div class="card-title">
+                        Cash Collection
+                    </div>
+
+                    <div class="card-value">
+                        ₹{{ cash_collection }}
+                    </div>
+
+                </div>
+
+
+                <div class="card online">
+
+                    <div class="card-title">
+                        Online Collection
+                    </div>
+
+                    <div class="card-value">
+                        ₹{{ online_collection }}
+                    </div>
+
+                </div>
+
+
+                <div class="card other">
+
+                    <div class="card-title">
+                        Other Collection
+                    </div>
+
+                    <div class="card-value">
+                        ₹{{ other_collection }}
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- FILTER -->
+
+            <section class="filter-box">
+
+
+                <div class="filter-title">
+                    🔎 Filter Payments
+                </div>
+
+
+                <form
+                    method="GET"
+                    class="filter-form"
+                >
+
+
+                    <div class="field">
+
+                        <label for="search">
+                            Customer Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="search"
+                            name="search"
+                            value="{{ search }}"
+                            placeholder="Search customer..."
+                        >
+
+                    </div>
+
+
+
+                    <div class="field">
+
+                        <label for="method">
+                            Payment Method
+                        </label>
+
+                        <select
+                            id="method"
+                            name="method"
+                        >
+
+                            <option value="">
+                                All Methods
+                            </option>
+
+                            <option
+                                value="Cash"
+                                {% if method == "Cash" %}selected{% endif %}
+                            >
+                                Cash
+                            </option>
+
+                            <option
+                                value="Online"
+                                {% if method == "Online" %}selected{% endif %}
+                            >
+                                Online
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="field">
+
+                        <label for="payment_date">
+                            Payment Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="payment_date"
+                            name="payment_date"
+                            value="{{ payment_date }}"
+                        >
+
+                    </div>
+
+
+
+                    <button
+                        type="submit"
+                        class="filter-btn"
+                    >
+                        🔍 Apply Filter
+                    </button>
+
+
+                </form>
+
+
+                <a
+                    href="{% url 'reports' %}"
+                    class="clear-btn"
+                >
+                    ✕ Clear Filters
+                </a>
+
+
+            </section>
+
+
+
+            <!-- REPORT TABLE -->
+
+            <div class="report-title">
+                Payment Details
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>Customer</th>
+
+                            <th>Loan</th>
+
+                            <th>Amount</th>
+
+                            <th>Date</th>
+
+                            <th>Payment Method</th>
+
+                            <th>Notes</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+
+                        {% for payment in payments %}
+
+                        <tr>
+
+                            <td>
+                                {{ payment.id }}
+                            </td>
+
+
+                            <td>
+                                {{ payment.customer.name }}
+                            </td>
+
+
+                            <td>
+                                ₹{{ payment.loan.loan_amount }}
+                            </td>
+
+
+                            <td class="amount">
+                                ₹{{ payment.amount }}
+                            </td>
+
+
+                            <td>
+                                {{ payment.payment_date }}
+                            </td>
+
+
+                            <td>
+
+                                <span class="method">
+                                    {{ payment.payment_method }}
+                                </span>
+
+                            </td>
+
+
+                            <td>
+                                {{ payment.notes|default:"—" }}
+                            </td>
+
+                        </tr>
+
+
+                        {% empty %}
+
+                        <tr>
+
+                            <td
+                                colspan="7"
+                                class="empty"
+                            >
+
+                                📭 No payments found.
+
+                                <br><br>
+
+                                Try changing your filters.
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+
+            <!-- BOTTOM LINKS -->
+
+            <div class="bottom">
+
+
+                <a
+                    href="{% url 'add_payment' %}"
+                    class="bottom-link"
+                >
+                    + Record Payment
+                </a>
+
+
+                <a
+                    href="{% url 'payment_list' %}"
+                    class="bottom-link"
+                >
+                    📋 Payment History
+                </a>
+
+
+                <a
+                    href="{% url 'dashboard' %}"
+                    class="bottom-link"
+                >
+                    ← Dashboard
+                </a>
+
+
+            </div>
+
+
+
+            <!-- FOOTER -->
+
+            <div class="footer">
+
+                © 2026 Raghava Capital
+
+                <br>
+
+                Simple Loans. Stronger Futures.
+
+            </div>
+
+
+        </main>
+
+
+    </div>
+
+
+</body>
+
+</html>

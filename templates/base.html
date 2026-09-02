@@ -1,0 +1,551 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Raghava Capital{% endblock %}</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #eef3f1;
+            color: #172033;
+        }
+
+
+        /* ================================
+           SIDEBAR
+        ================================= */
+
+        .sidebar {
+
+            position: fixed;
+
+            left: 0;
+            top: 0;
+
+            width: 250px;
+            height: 100vh;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #123c35,
+                    #092a25
+                );
+
+            color: white;
+
+            padding: 25px 16px;
+
+            display: flex;
+            flex-direction: column;
+
+            overflow-y: auto;
+
+            z-index: 1000;
+        }
+
+
+        .logo {
+
+            background: #f8faf9;
+
+            border-radius: 14px;
+
+            padding: 10px;
+
+            margin-bottom: 28px;
+
+            text-align: center;
+
+            box-shadow:
+                0 5px 18px
+                rgba(0,0,0,0.15);
+        }
+
+
+        .logo img {
+
+            width: 190px;
+
+            max-width: 100%;
+
+            height: auto;
+
+            display: block;
+
+            margin: 0 auto;
+
+            object-fit: contain;
+        }
+
+
+        /* ================================
+           NAVIGATION
+        ================================= */
+
+        .nav {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 8px;
+        }
+
+
+        .nav a {
+
+            color: #dce9e5;
+
+            text-decoration: none;
+
+            padding: 14px 16px;
+
+            border-radius: 10px;
+
+            font-size: 15px;
+
+            transition: 0.25s;
+
+            display: block;
+        }
+
+
+        .nav a:hover {
+
+            background:
+                rgba(255,255,255,0.10);
+
+            color: white;
+
+            transform:
+                translateX(3px);
+        }
+
+
+        .nav a.active {
+
+            background: #c49a5a;
+
+            color: white;
+
+            box-shadow:
+                0 5px 15px
+                rgba(196,154,90,0.25);
+        }
+
+
+        .logout {
+
+            margin-top: 20px !important;
+
+            border-top:
+                1px solid
+                rgba(255,255,255,0.15);
+
+            padding-top: 20px !important;
+        }
+
+
+        .sidebar-bottom {
+
+            margin-top: auto;
+
+            text-align: center;
+
+            color: #9db5ae;
+
+            font-size: 12px;
+
+            line-height: 1.6;
+
+            padding-top: 25px;
+        }
+
+
+        /* ================================
+           MAIN
+        ================================= */
+
+        .main {
+
+            margin-left: 250px;
+
+            min-height: 100vh;
+
+            width: calc(100% - 250px);
+        }
+
+
+        /* ================================
+           TOPBAR
+        ================================= */
+
+        .topbar {
+
+            min-height: 75px;
+
+            background: #f8faf9;
+
+            border-bottom:
+                1px solid #dce5e1;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 15px 35px;
+        }
+
+
+        .profile {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+
+        .profile-icon {
+
+            width: 42px;
+            height: 42px;
+
+            border-radius: 50%;
+
+            background: #dcebe6;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 22px;
+        }
+
+
+        .profile-text strong {
+
+            display: block;
+
+            font-size: 14px;
+        }
+
+
+        .profile-text span {
+
+            color: #75867f;
+
+            font-size: 12px;
+        }
+
+
+        /* ================================
+           PAGE CONTENT
+        ================================= */
+
+        .content {
+
+            padding: 35px;
+        }
+
+
+        /* ================================
+           MOBILE
+        ================================= */
+
+        @media (max-width: 750px) {
+
+            .sidebar {
+
+                position: relative;
+
+                width: 100%;
+
+                height: auto;
+
+                min-height: auto;
+
+                padding: 20px 15px;
+            }
+
+
+            .logo {
+
+                margin-bottom: 20px;
+            }
+
+
+            .logo img {
+
+                width: 210px;
+            }
+
+
+            .nav {
+
+                display: grid;
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+                gap: 8px;
+            }
+
+
+            .nav a {
+
+                padding: 12px 8px;
+
+                text-align: center;
+
+                font-size: 14px;
+            }
+
+
+            .nav a:hover {
+
+                transform: none;
+            }
+
+
+            .logout {
+
+                margin-top: 5px !important;
+
+                padding-top: 12px !important;
+            }
+
+
+            .sidebar-bottom {
+
+                display: none;
+            }
+
+
+            .main {
+
+                margin-left: 0;
+
+                width: 100%;
+            }
+
+
+            .topbar {
+
+                padding: 15px;
+
+                min-height: auto;
+
+                justify-content: flex-end;
+            }
+
+
+            .profile {
+
+                display: none;
+            }
+
+
+            .content {
+
+                padding: 20px 15px;
+            }
+        }
+
+
+        @media (max-width: 500px) {
+
+            .nav {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .nav a {
+
+                font-size: 13px;
+
+                padding: 11px 7px;
+            }
+
+
+            .content {
+
+                padding: 15px 10px;
+            }
+        }
+
+
+        @media (max-width: 360px) {
+
+            .logo img {
+
+                width: 185px;
+            }
+
+            .content {
+
+                padding: 12px 8px;
+            }
+        }
+
+    </style>
+
+    {% block extra_css %}{% endblock %}
+
+</head>
+
+
+<body>
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <img
+                src="/static/images/logo.png"
+                alt="Raghava Capital Logo"
+            >
+
+        </div>
+
+
+        <nav class="nav">
+
+            <a
+                href="{% url 'dashboard' %}"
+                class="{% block dashboard_active %}{% endblock %}"
+            >
+                🏠 &nbsp; Dashboard
+            </a>
+
+
+            <a
+                href="{% url 'add_customer' %}"
+                class="{% block customer_active %}{% endblock %}"
+            >
+                👤 &nbsp; Add Customer
+            </a>
+
+
+            <a
+                href="{% url 'add_loan' %}"
+                class="{% block loan_active %}{% endblock %}"
+            >
+                💰 &nbsp; Add Loan
+            </a>
+
+
+            <a
+                href="{% url 'payment_list' %}"
+                class="{% block payment_active %}{% endblock %}"
+            >
+                💳 &nbsp; Payments
+            </a>
+
+
+            <a
+                href="{% url 'reports' %}"
+                class="{% block reports_active %}{% endblock %}"
+            >
+                📊 &nbsp; Reports
+            </a>
+
+
+            <a
+                href="{% url 'logout' %}"
+                class="logout"
+            >
+                🚪 &nbsp; Logout
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <p>
+                “Supporting People<br>
+                Building Better Tomorrows”
+            </p>
+
+            <p>
+                © 2026 Raghava Capital
+            </p>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- MAIN -->
+
+    <div class="main">
+
+
+        <header class="topbar">
+
+            <div class="profile">
+
+                <div class="profile-icon">
+                    👤
+                </div>
+
+                <div class="profile-text">
+
+                    <strong>
+                        Owner
+                    </strong>
+
+                    <span>
+                        Raghava Capital
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <main class="content">
+
+            {% block content %}
+
+            {% endblock %}
+
+        </main>
+
+
+    </div>
+
+
+</body>
+
+</html>
