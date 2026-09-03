@@ -12,6 +12,21 @@
 
     <title>{% block title %}Raghava Capital{% endblock %}</title>
 
+    <link rel="manifest" href="{% static 'manifest.json' %}">
+
+    <meta name="theme-color" content="#123c35">
+
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <meta name="apple-mobile-web-app-title" content="Raghava Capital">
+
+    <link rel="apple-touch-icon"
+          href="{% static 'images/logo.png' %}">
+
     <style>
 
         * {
@@ -405,6 +420,7 @@
                 width: 185px;
             }
 
+
             .content {
 
                 padding: 12px 8px;
@@ -437,11 +453,14 @@
 
         <nav class="nav">
 
+
             <a
                 href="{% url 'dashboard' %}"
                 class="{% block dashboard_active %}{% endblock %}"
             >
+
                 🏠 &nbsp; Dashboard
+
             </a>
 
 
@@ -449,7 +468,9 @@
                 href="{% url 'add_customer' %}"
                 class="{% block customer_active %}{% endblock %}"
             >
+
                 👤 &nbsp; Add Customer
+
             </a>
 
 
@@ -457,7 +478,9 @@
                 href="{% url 'add_loan' %}"
                 class="{% block loan_active %}{% endblock %}"
             >
+
                 💰 &nbsp; Add Loan
+
             </a>
 
 
@@ -465,7 +488,9 @@
                 href="{% url 'payment_list' %}"
                 class="{% block payment_active %}{% endblock %}"
             >
+
                 💳 &nbsp; Payments
+
             </a>
 
 
@@ -473,7 +498,9 @@
                 href="{% url 'reports' %}"
                 class="{% block reports_active %}{% endblock %}"
             >
+
                 📊 &nbsp; Reports
+
             </a>
 
 
@@ -481,8 +508,11 @@
                 href="{% url 'logout' %}"
                 class="logout"
             >
+
                 🚪 &nbsp; Logout
+
             </a>
+
 
         </nav>
 
@@ -490,12 +520,17 @@
         <div class="sidebar-bottom">
 
             <p>
+
                 “Supporting People<br>
                 Building Better Tomorrows”
+
             </p>
 
+
             <p>
+
                 © 2026 Raghava Capital
+
             </p>
 
         </div>
@@ -511,27 +546,40 @@
 
         <header class="topbar">
 
+
             <div class="profile">
 
+
                 <div class="profile-icon">
+
                     👤
+
                 </div>
+
 
                 <div class="profile-text">
 
                     <strong>
+
                         Owner
+
                     </strong>
 
+
                     <span>
+
                         Raghava Capital
+
                     </span>
 
                 </div>
 
+
             </div>
 
+
         </header>
+
 
 
         <main class="content">
@@ -544,6 +592,44 @@
 
 
     </div>
+
+
+
+    <!-- ================================
+         SERVICE WORKER REGISTRATION
+    ================================= -->
+
+    <script>
+
+        if ("serviceWorker" in navigator) {
+
+            window.addEventListener("load", function () {
+
+                navigator.serviceWorker.register("/service-worker.js")
+
+                    .then(function (registration) {
+
+                        console.log(
+                            "Raghava Capital service worker registered:",
+                            registration.scope
+                        );
+
+                    })
+
+                    .catch(function (error) {
+
+                        console.error(
+                            "Service worker registration failed:",
+                            error
+                        );
+
+                    });
+
+            });
+
+        }
+
+    </script>
 
 
 </body>
